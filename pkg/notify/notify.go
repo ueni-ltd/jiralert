@@ -243,7 +243,7 @@ func toGroupTicketLabel(groupLabels alertmanager.KV, hashJiraLabel bool) string 
 	if hashJiraLabel {
 		hash := sha512.New()
 		for _, p := range groupLabels.SortedPairs() {
-			kvString := fmt.Sprintf("%s=%q,", p.Name, p.Value)
+			kvString := fmt.Sprintf("%s:%s,", p.Name, p.Value)
 			_, _ = hash.Write([]byte(kvString)) // hash.Write can never return an error
 		}
 		return fmt.Sprintf("JIRALERT{%x}", hash.Sum(nil))
